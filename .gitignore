@@ -1,0 +1,50 @@
+# ---- Python / Django ----
+__pycache__/
+*.py[cod]
+*.sqlite3
+db.sqlite3
+*.log
+*.pot
+*.pyc
+*.pyo
+*.pyd
+*.db
+*.env
+*.DS_Store
+.env
+.env.*
+
+# Django specific
+/media/
+staticfiles/
+static/
+local_settings.py
+
+# Virtual environments
+venv/
+env/
+ENV/
+.venv/
+
+# ---- Node / React ----
+node_modules/
+build/
+dist/
+.npm/
+.cache/
+coverage/
+*.tsbuildinfo
+
+# React config files
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Editor / OS
+.vscode/
+.idea/
+*.swp
+*.swo
+*.bak
+.DS_Store
+Thumbs.db
