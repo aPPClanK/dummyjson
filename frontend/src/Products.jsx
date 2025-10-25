@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { DotsLoader } from './AppLayout';
 
 export default function Products() {
   const [data, setData] = useState(null);
@@ -29,83 +30,164 @@ export default function Products() {
 
   if (loading)
     return (
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          height: "100vh",
-          fontSize: "20px",
-          fontFamily: "sans-serif"
-        }}
-      >
-        Loading data...
+      <div style={styles.page}>
+        <DotsLoader />
       </div>
     );
 
   if (error)
     return (
-      <div
-        style={{
-          color: "red",
-          textAlign: "center",
-          marginTop: "50px",
-          fontSize: "18px",
-          fontFamily: "sans-serif"
-        }}
-      >
-        Error: {error.message}
+      <div style={styles.page}>
+        <div>Error: {error.message}</div>
       </div>
     );
 
 
   return (
-    <div style={{ padding: "20px", fontFamily: "sans-serif" }}>
-      <h1>Products</h1>
-      {data?.products?.map((product) => (
-        <div
-          key={product.id}
-          style={{
-            border: "1px solid #ddd",
-            borderRadius: "10px",
-            padding: "15px",
-            marginBottom: "10px",
-          }}
-        >
-          <h3>{product.title}</h3>
-          <p>{product.description}</p>
-          <p>
-            <b>Price:</b> ${product.price}
-          </p>
-          <p>
-            <b>Rating:</b> ⭐ {product.rating}
-          </p>
-          <p>
-            <b>Category:</b> {product.category}
-          </p>
-        </div>
-      ))}
-      <div style={{ marginTop: "20px", textAlign: "center" }}>
-        <button onClick={() => setPage(page - 1)} disabled={page === 1}>
-          ⬅️ Назад
-        </button>
-        <span style={{ margin: "0 10px" }}>Стр.
-          <input
-            type="text"
-            value={page}
-            onChange={(e) => setPage(Number(e.target.value))}
+    <div style={styles.page}>
+      <div style={styles.container}>
+        <h1 style={styles.title}>🛍️ Products</h1>
+
+        {data?.products?.map((product) => (
+          <div key={product.id} style={styles.card}>
+            <img
+              src={product.thumbnail}
+              alt={product.title}
+              style={styles.image}
+            />
+            <div style={styles.info}>
+              <h3 style={styles.productTitle}>{product.title}</h3>
+              <p style={styles.desc}>{product.description}</p>
+              <div style={styles.details}>
+                <span><b>💲Price:</b> ${product.price}</span>
+                <span><b>⭐ Rating:</b> {product.rating}</span>
+                <span><b>🏷️ Category:</b> {product.category}</span>
+              </div>
+            </div>
+          </div>
+        ))}
+
+        <div style={styles.pagination}>
+          <button
+            onClick={() => setPage(page - 1)}
+            disabled={page === 1}
             style={{
-              width: "20px",
-              marginLeft: "8px",
-              textAlign: "center",
-              border: "1px solid #ccc",
-              borderRadius: "4px",
-              padding: "3px",
+              ...styles.button,
+              background: page === 1 ? "#ccc" : "#c9dcfcff",
+              cursor: page === 1 ? "not-allowed" : "pointer",
             }}
-          />
-        </span>
-        <button onClick={() => setPage(page + 1)}>Вперёд ➡️</button>
+          >
+            ⬅️ Back
+          </button>
+
+          <span style={styles.pageText}>
+            Page{" "}
+            <input
+              type="text"
+              value={page}
+              onChange={(e) => {
+                const val = Number(e.target.value);
+                if (!isNaN(val) && val > 0) setPage(val);
+              }}
+              style={styles.pageInput}
+            />
+          </span>
+
+          <button onClick={() => setPage(page + 1)} style={styles.button}>
+            Next ➡️
+          </button>
+        </div>
       </div>
     </div>
   );
 }
+
+const styles = {
+  page: {
+    background: "linear-gradient(135deg, #6EE7B7, #3B82F6)",
+    minHeight: "100vh",
+    display: "flex",
+    padding: "0 0 40px",
+    justifyContent: "center",
+    alignItems: "center",
+    fontFamily: "sans-serif",
+  },
+  container: {
+    maxWidth: "800px",
+    margin: "0 auto",
+    padding: "0 20px",
+  },
+  title: {
+    textAlign: "center",
+    marginBottom: "30px",
+    color: "#f2f2f2ff",
+    textShadow: "#000000ff 0px 0px 4px"
+  },
+  card: {
+    display: "flex",
+    background: "#fff",
+    borderRadius: "12px",
+    boxShadow: "0 4px 12px rgba(0,0,0,0.1)",
+    marginBottom: "20px",
+    overflow: "hidden",
+  },
+  image: {
+    width: "200px",
+    objectFit: "cover",
+  },
+  info: {
+    padding: "15px",
+    flex: 1,
+  },
+  productTitle: {
+    margin: "0 0 8px",
+    color: "#111",
+  },
+  desc: {
+    color: "#555",
+    fontSize: "14px",
+    marginBottom: "10px",
+  },
+  details: {
+    fontSize: "14px",
+    color: "#333",
+    display: "flex",
+    flexDirection: "column",
+    gap: "3px",
+  },
+  pagination: {
+    background: "white",
+    borderRadius: "20px",
+    boxShadow: "0 4px 12px rgba(0,0,0,0.1)",
+    width: "320px",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    margin: "0 auto",
+    gap: "12px",
+    padding: "12px",
+    marginTop: "30px",
+  },
+  button: {
+    background: "#c9dcfcff",
+    color: "black",
+    borderRadius: "8px",
+    padding: "8px 16px",
+    cursor: "pointer",
+    transition: "background 0.3s",
+    fontWeight: "600",
+  },
+  pageText: {
+    display: "flex",
+    alignItems: "center",
+    gap: "6px",
+  },
+  pageInput: {
+    width: "35px",
+    textAlign: "center",
+    border: "1px solid #ccc",
+    borderRadius: "6px",
+    padding: "3px",
+    fontSize: "14px",
+  },
+};

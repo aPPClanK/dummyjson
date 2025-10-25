@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
+import { DotsLoader } from "./AppLayout";
 
 export default function Profile() {
   const [user, setUser] = useState(null);
@@ -26,7 +27,7 @@ export default function Profile() {
 
         const data = await res.json();
 
-        if (!res.ok) throw new Error(data.message || "Ошибка загрузки профиля");
+        if (!res.ok) throw new Error(data.message || "Error loading profile");
 
         setUser(data);
       } catch (err) {
@@ -37,36 +38,87 @@ export default function Profile() {
     fetchProfile();
   }, [navigate]);
 
-  if (error) return <p style={{ color: "red" }}>{error}</p>;
-  if (!user) return <p>Загрузка профиля...</p>;
+  if (!user)
+    return (
+      <div style={styles.page}>
+        <DotsLoader />
+      </div>
+    );
+
+  if (error)
+    return (
+      <div style={styles.page}>
+        Error: {error.message}
+      </div>
+    );
   return (
-    <div style={{ maxWidth: "400px", margin: "40px auto", textAlign: "center", fontFamily: "sans-serif"}}>
-      <img
-        src={user.image}
-        alt={user.firstName}
-        style={{ width: "100px", borderRadius: "50%", marginBottom: "10px" }}
-      />
-      <h2>{user.firstName} {user.lastName}</h2>
-      <p><b>Username:</b> {user.username}</p>
-      <p><b>Email:</b> {user.email}</p>
-      <p><b>Gender:</b> {user.gender}</p>
-      <button
-        onClick={() => {
-          localStorage.removeItem("accessToken");
-          navigate("/login");
-        }}
-        style={{
-          marginTop: "20px",
-          padding: "8px 16px",
-          border: "none",
-          background: "#e74c3c",
-          color: "white",
-          borderRadius: "8px",
-          cursor: "pointer"
-        }}
-      >
-        Выйти
-      </button>
+    <div style={styles.page}>
+      <div style={styles.card}>
+        <img
+          src={user.image || "https://via.placeholder.com/100"}
+          alt={user.firstName}
+          style={styles.avatar}
+        />
+        <h2 style={styles.name}>{user.firstName} {user.lastName}</h2>
+        <p style={styles.info}><b>Username:</b> {user.username}</p>
+        <p style={styles.info}><b>Email:</b> {user.email}</p>
+        <p style={styles.info}><b>Gender:</b> {user.gender}</p>
+
+        <button
+          onClick={() => {
+            localStorage.removeItem("accessToken");
+            navigate("/login");
+          }}
+          style={styles.logout}
+        >
+          Logout
+        </button>
+      </div>
     </div>
   );
 }
+
+const styles = {
+  page: {
+    background: "linear-gradient(135deg, #6EE7B7, #3B82F6)",
+    minHeight: "100vh",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    fontFamily: "sans-serif",
+  },
+  card: {
+    background: "#fff",
+    borderRadius: "16px",
+    padding: "40px 30px",
+    boxShadow: "0 8px 25px rgba(0,0,0,0.15)",
+    textAlign: "center",
+    maxWidth: "400px",
+    width: "90%",
+  },
+  avatar: {
+    width: "120px",
+    height: "120px",
+    borderRadius: "50%",
+    objectFit: "cover",
+    marginBottom: "15px",
+    boxShadow: "0 4px 12px rgba(0,0,0,0.1)",
+  },
+  name: {
+    margin: "10px 0 5px",
+    color: "#333",
+  },
+  info: {
+    color: "#555",
+    marginBottom: "6px",
+  },
+  logout: {
+    marginTop: "25px",
+    padding: "10px 20px",
+    borderRadius: "8px",
+    background: "#ef4444",
+    color: "#fff",
+    fontWeight: "600",
+    cursor: "pointer",
+  },
+};
