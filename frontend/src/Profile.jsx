@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import { DotsLoader } from "./AppLayout";
+import { apiFetch } from "./auth/apiFetch";
 
 export default function Profile() {
   const [user, setUser] = useState(null);
-  const [error, setError] = useState("");
+  const [error, setError] = useState(null);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -12,7 +13,7 @@ export default function Profile() {
 
     const fetchProfile = async () => {
       try {
-        const res = await fetch("http://localhost:8000/user/me", {
+        const res = await apiFetch("http://localhost:8000/user/me", {
           method: "GET",
           headers: {
             "Authorization": `Bearer ${accessToken}`,
@@ -50,7 +51,7 @@ export default function Profile() {
     <div style={styles.page}>
       <div style={styles.card}>
         <img
-          src={user.image || "https://via.placeholder.com/100"}
+          src={user.image}
           alt={user.firstName}
           style={styles.avatar}
         />
@@ -58,6 +59,7 @@ export default function Profile() {
         <p style={styles.info}><b>Username:</b> {user.username}</p>
         <p style={styles.info}><b>Email:</b> {user.email}</p>
         <p style={styles.info}><b>Gender:</b> {user.gender}</p>
+        <p style={styles.info}><b>Role:</b> {user.role}</p>
 
         <button
           onClick={() => {
@@ -95,7 +97,7 @@ const styles = {
   avatar: {
     width: "120px",
     height: "120px",
-    borderRadius: "50%",
+    borderRadius: "10%",
     objectFit: "cover",
     marginBottom: "15px",
     boxShadow: "0 4px 12px rgba(0,0,0,0.1)",
@@ -107,6 +109,7 @@ const styles = {
   info: {
     color: "#555",
     marginBottom: "6px",
+    textAlign: "start",
   },
   logout: {
     marginTop: "25px",

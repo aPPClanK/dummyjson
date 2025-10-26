@@ -5,22 +5,41 @@ from django.http import JsonResponse
 
 BASE_URL = "https://dummyjson.com"
 
+ALLOWED_PATHS = {
+    "auth/login",
+    "auth/refresh",
+    "user/me",
+    "posts",
+    "products",
+    "todos",
+    "users"
+}
+
+
 @api_view(['GET', 'POST', 'PUT', 'DELETE'])
 def proxy(request, path):
-    method = request.method
-    url = f"{BASE_URL}/{path}"
-    
-    data = request.data if method in ['POST', 'PUT'] else None
+    clean_path = path.split("?")[0]
+        
+    if not any(clean_path.startswith(allowed) for allowed in ALLOWED_PATHS):
+        return JsonResponse(
+            {"error": f"Proxy access to '{path}' is not allowed."},
+            status=403
+        )
 
-    headers = {}
-    if 'Authorization' in request.headers:
-        headers['Authorization'] = request.headers['Authorization']
-    headers['Content-Type'] = 'application/json'
+    url = f"{BASE_URL}/{path}"
+
+    data = request.data if request.method in ['POST', 'PUT'] else None
+
+    headers = {
+        "Content-Type": "application/json"
+    }
+    if "Authorization" in request.headers:
+        headers["Authorization"] = request.headers["Authorization"]
 
     try:
         res = requests.request(
-            method,
-            url,
+            method=request.method,
+            url=url,
             params=request.GET,
             json=data,
             headers=headers,
@@ -29,4 +48,4 @@ def proxy(request, path):
         return Response(res.json(), status=res.status_code)
 
     except requests.exceptions.RequestException as e:
-        return JsonResponse({'error': str(e)}, status=500)
+        return JsonResponse({"error": str(e)}, status=500)

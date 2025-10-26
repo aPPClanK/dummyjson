@@ -1,8 +1,12 @@
 import { Routes, Route, useLocation } from "react-router";
 import Navbar from "./Navbar";
-import Products from "./Products";
+import ProductList from "./ProductList";
+import Product from "./Product";
 import Profile from "./Profile";
 import Login from "./Login";
+import Todos from "./Todos";
+import Posts from "./Posts";
+import Users from "./Users";
 import ProtectedRoutes from "./ProtectedRoutes";
 
 export function DotsLoader() {
@@ -42,8 +46,12 @@ export default function AppLayout() {
       <Routes>
         <Route path="/login" element={<Login />} />
         <Route element={<ProtectedRoutes />}>
-          <Route path="/" element={<Products />} />
+          <Route path="/" element={<ProductList />} />
+          <Route path="/products/:id" element={<Product />} />
           <Route path="/profile" element={<Profile />} />
+          <Route path="/todos" element={<Todos />} />
+          <Route path="/posts" element={<Posts />} />
+          <Route path="/users" element={<Users />} />
         </Route>
       </Routes>
     </>

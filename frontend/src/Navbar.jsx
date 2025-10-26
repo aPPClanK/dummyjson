@@ -1,6 +1,29 @@
+import { useEffect, useState } from "react";
 import { NavLink } from "react-router";
 
 export default function Navbar() {
+  const [isAdmin, setIsAdmin] = useState(false);
+
+  useEffect(() => {
+    const token = localStorage.getItem("accessToken");
+    if (!token) return;
+
+    async function fetchUser() {
+      try {
+        const res = await fetch("http://localhost:8000/user/me", {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        if (!res.ok) return;
+        const data = await res.json();
+        if (data.role === "admin") setIsAdmin(true);
+      } catch (err) {
+        console.error("Failed to fetch user info:", err);
+      }
+    }
+
+    fetchUser();
+  }, []);
+
   return (
     <nav
       style={{
@@ -30,6 +53,11 @@ export default function Navbar() {
         <NavLink to="/posts" style={({ isActive }) => ({ color: isActive ? "cyan" : "white", textShadow: isActive ? "cyan 0 0 4px" : "" })}>
           Posts
         </NavLink>
+        {isAdmin && (
+          <NavLink to="/users" style={({ isActive }) => ({ color: isActive ? "cyan" : "white", textShadow: isActive ? "cyan 0 0 4px" : "" })}>
+            Users
+          </NavLink>
+        )}
         <NavLink to="/profile" style={({ isActive }) => ({ color: isActive ? "cyan" : "white", textShadow: isActive ? "cyan 0 0 4px" : "" })}>
           Profile
         </NavLink>
