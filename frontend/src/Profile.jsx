@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import { DotsLoader } from "./AppLayout";
 
@@ -9,11 +9,6 @@ export default function Profile() {
 
   useEffect(() => {
     const accessToken = localStorage.getItem("accessToken");
-
-    if (!accessToken) {
-      navigate("/login");
-      return;
-    }
 
     const fetchProfile = async () => {
       try {
@@ -67,6 +62,7 @@ export default function Profile() {
         <button
           onClick={() => {
             localStorage.removeItem("accessToken");
+            localStorage.removeItem("refreshToken");
             navigate("/login");
           }}
           style={styles.logout}

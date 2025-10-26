@@ -1,5 +1,4 @@
-import React from "react";
-import { Link } from "react-router"; // не react-router-dom!
+import { NavLink } from "react-router";
 
 export default function Navbar() {
   return (
@@ -8,7 +7,12 @@ export default function Navbar() {
         background: "#333",
         color: "white",
         padding: "10px 20px",
+        boxSizing: "border-box",
+        MozBoxSizing: "border-box",
+        WebkitBoxSizing: "border-box",
         display: "flex",
+        position: "fixed",
+        width: "100%",
         justifyContent: "space-between",
         alignItems: "center",
         fontFamily: "sans-serif"
@@ -17,18 +21,18 @@ export default function Navbar() {
       <div style={{ fontWeight: "bold" }}>DummyJSON</div>
 
       <div style={{ display: "flex", gap: "15px" }}>
-        <Link to="/products" style={{ color: "white", textDecoration: "none" }}>
+        <NavLink to="/" style={({ isActive }) => ({ color: isActive ? "cyan" : "white", textShadow: isActive ? "cyan 0 0 4px" : "" })}>
           Products
-        </Link>
-        <Link to="/todos" style={{ color: "white", textDecoration: "none" }}>
+        </NavLink>
+        <NavLink to="/todos" style={({ isActive }) => ({ color: isActive ? "cyan" : "white", textShadow: isActive ? "cyan 0 0 4px" : "" })}>
           Todos
-        </Link>
-        <Link to="/posts" style={{ color: "white", textDecoration: "none" }}>
+        </NavLink>
+        <NavLink to="/posts" style={({ isActive }) => ({ color: isActive ? "cyan" : "white", textShadow: isActive ? "cyan 0 0 4px" : "" })}>
           Posts
-        </Link>
-        <Link to="/profile" style={{ color: "white", textDecoration: "none" }}>
+        </NavLink>
+        <NavLink to="/profile" style={({ isActive }) => ({ color: isActive ? "cyan" : "white", textShadow: isActive ? "cyan 0 0 4px" : "" })}>
           Profile
-        </Link>
+        </NavLink>
       </div>
     </nav>
   );

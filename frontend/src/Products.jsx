@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { DotsLoader } from './AppLayout';
 
 export default function Products() {
@@ -107,7 +107,7 @@ const styles = {
     background: "linear-gradient(135deg, #6EE7B7, #3B82F6)",
     minHeight: "100vh",
     display: "flex",
-    padding: "0 0 40px",
+    padding: "40px 0 40px",
     justifyContent: "center",
     alignItems: "center",
     fontFamily: "sans-serif",

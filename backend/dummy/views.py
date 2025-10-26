@@ -9,17 +9,14 @@ BASE_URL = "https://dummyjson.com"
 def proxy(request, path):
     method = request.method
     url = f"{BASE_URL}/{path}"
-
-    # Берём тело запроса, если есть
+    
     data = request.data if method in ['POST', 'PUT'] else None
 
-    # Копируем все заголовки клиента
     headers = {}
     if 'Authorization' in request.headers:
         headers['Authorization'] = request.headers['Authorization']
     headers['Content-Type'] = 'application/json'
 
-    # Прокидываем запрос
     try:
         res = requests.request(
             method,

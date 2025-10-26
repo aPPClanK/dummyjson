@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router";
 
 export default function Login() {
@@ -22,13 +22,13 @@ export default function Login() {
       const data = await res.json();
 
       if (!res.ok) {
-        throw new Error(data.message || "Ошибка входа");
+        throw new Error(data.message || "Login error");
       }
 
       localStorage.setItem("accessToken", data.accessToken);
       localStorage.setItem("refreshToken", data.refreshToken);
 
-      navigate("/products");
+      navigate("/");
 
     } catch (err) {
       setError(err.message);

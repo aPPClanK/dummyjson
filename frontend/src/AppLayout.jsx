@@ -1,9 +1,9 @@
-import React from "react";
 import { Routes, Route, useLocation } from "react-router";
 import Navbar from "./Navbar";
 import Products from "./Products";
 import Profile from "./Profile";
 import Login from "./Login";
+import ProtectedRoutes from "./ProtectedRoutes";
 
 export function DotsLoader() {
   return (
@@ -31,11 +31,6 @@ function dot(delay) {
   };
 }
 
-export function ProtectedRoute({ children }) {
-  const token = localStorage.getItem("accessToken");
-  return token ? children : <Navigate to="/login" />;
-}
-
 export default function AppLayout() {
   const location = useLocation();
   const hideNavbar = location.pathname === "/login";
@@ -46,22 +41,10 @@ export default function AppLayout() {
 
       <Routes>
         <Route path="/login" element={<Login />} />
-        <Route
-          path="/products"
-          element={
-            <ProtectedRoute>
-              <Products />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/profile"
-          element={
-            <ProtectedRoute>
-              <Profile />
-            </ProtectedRoute>
-          }
-        />
+        <Route element={<ProtectedRoutes />}>
+          <Route path="/" element={<Products />} />
+          <Route path="/profile" element={<Profile />} />
+        </Route>
       </Routes>
     </>
   );
