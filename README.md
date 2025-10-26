@@ -56,4 +56,11 @@ Default frontend URL: http://localhost:5173 (if using Vite)
   "password": "emilyspass"
 }
 ```
-Use this account to log in and test API routes.
+Use this account to log in as an administrator and test API routes, or use this account to log in as an user:
+
+```
+{
+  "username": "danielc",
+  "password": "danielcpass"
+}
+```
