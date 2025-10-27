@@ -6,6 +6,7 @@ from django.http import JsonResponse
 BASE_URL = "https://dummyjson.com"
 
 ALLOWED_PATHS = {
+    "dummyjson-production-47d6.up.railway.app",
     "auth/login",
     "auth/refresh",
     "user/me",
