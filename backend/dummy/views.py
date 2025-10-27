@@ -12,7 +12,7 @@ ALLOWED_PATHS = {
     "posts",
     "products",
     "todos",
-    "users"
+    "users",
 }
 
 

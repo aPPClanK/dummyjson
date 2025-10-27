@@ -12,13 +12,13 @@ export default function Todos() {
 
     async function fetchUserAndTodos() {
       try {
-        const userRes = await apiFetch("http://localhost:8000/user/me", {
+        const userRes = await apiFetch("https://dummyjson-production-47d6.up.railway.app//user/me", {
           headers: { Authorization: `Bearer ${token}` },
         });
         if (!userRes.ok) throw new Error("Failed to fetch user");
         const userData = await userRes.json();
 
-        const todosRes = await fetch("http://localhost:8000/todos?limit=254");
+        const todosRes = await fetch("https://dummyjson-production-47d6.up.railway.app//todos?limit=254");
         if (!todosRes.ok) throw new Error("Failed to fetch todos");
         const todosData = await todosRes.json();
 
