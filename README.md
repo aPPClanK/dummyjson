@@ -64,3 +64,24 @@ Use this account to log in as an administrator and test API routes, or use this 
   "password": "danielcpass"
 }
 ```
+
+## Run with Docker
+
+You can run both backend and frontend using Docker.
+
+### Build and start containers
+```
+docker-compose up --build
+```
+This command will:
+
+- Build Docker images for both frontend and backend
+- Start both containers
+- Expose the apps on:
+- Frontend: http://localhost:3000
+- Backend API: http://localhost:8000
+
+### Stop containers
+```
+docker-compose down
+```
