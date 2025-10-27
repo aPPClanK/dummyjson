@@ -13,7 +13,7 @@ export default function Profile() {
 
     const fetchProfile = async () => {
       try {
-        const res = await apiFetch("https://dummyjson-production-47d6.up.railway.app//user/me", {
+        const res = await apiFetch("https://dummyjson-production-47d6.up.railway.app/user/me", {
           method: "GET",
           headers: {
             "Authorization": `Bearer ${accessToken}`,

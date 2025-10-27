@@ -10,7 +10,7 @@ export default function Navbar() {
 
     async function fetchUser() {
       try {
-        const res = await fetch("https://dummyjson-production-47d6.up.railway.app//user/me", {
+        const res = await fetch("https://dummyjson-production-47d6.up.railway.app/user/me", {
           headers: { Authorization: `Bearer ${token}` },
         });
         if (!res.ok) return;

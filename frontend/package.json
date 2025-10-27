@@ -3,7 +3,7 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "proxy": "https://dummyjson-production-47d6.up.railway.app/",
+  "proxy": "https://dummyjson-production-47d6.up.railway.app",
   "scripts": {
     "dev": "vite",
     "build": "vite build",

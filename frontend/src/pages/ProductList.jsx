@@ -19,9 +19,9 @@ export default function ProductList() {
         let url = "";
 
         if (query.trim()) {
-          url = `https://dummyjson-production-47d6.up.railway.app//products/search?q=${query}`;
+          url = `https://dummyjson-production-47d6.up.railway.app/products/search?q=${query}`;
         } else {
-          url = `https://dummyjson-production-47d6.up.railway.app//products?limit=${limit}&skip=${skip}`;
+          url = `https://dummyjson-production-47d6.up.railway.app/products?limit=${limit}&skip=${skip}`;
         }
 
         const res = await apiFetch(url);

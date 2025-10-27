@@ -10,7 +10,7 @@ export default function Product() {
   useEffect(() => {
     async function fetchProduct() {
       try {
-        const res = await apiFetch(`https://dummyjson-production-47d6.up.railway.app//products/${id}`);
+        const res = await apiFetch(`https://dummyjson-production-47d6.up.railway.app/products/${id}`);
         const result = await res.json();
         setProduct(result);
       } catch (err) {

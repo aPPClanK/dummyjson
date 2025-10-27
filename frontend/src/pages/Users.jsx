@@ -13,7 +13,7 @@ export default function Users() {
 
     async function fetchUsers() {
       try {
-        const meRes = await fetch("https://dummyjson-production-47d6.up.railway.app//user/me", {
+        const meRes = await fetch("https://dummyjson-production-47d6.up.railway.app/user/me", {
           headers: { Authorization: `Bearer ${token}` },
         });
         const meData = await meRes.json();
@@ -23,7 +23,7 @@ export default function Users() {
         }
 
         const skip = (page - 1) * limit;
-        const res = await fetch(`https://dummyjson-production-47d6.up.railway.app//users?limit=${limit}&skip=${skip}`);
+        const res = await fetch(`https://dummyjson-production-47d6.up.railway.app/users?limit=${limit}&skip=${skip}`);
         const data = await res.json();
         setUsers(data.users || []);
       } catch (err) {

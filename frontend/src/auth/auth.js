@@ -3,7 +3,7 @@ export async function refreshToken() {
   if (!refreshToken) return null;
 
   try {
-    const res = await fetch("https://dummyjson-production-47d6.up.railway.app//auth/refresh", {
+    const res = await fetch("https://dummyjson-production-47d6.up.railway.app/auth/refresh", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
