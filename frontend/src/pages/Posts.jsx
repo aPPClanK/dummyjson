@@ -12,12 +12,12 @@ export default function Posts() {
 
     async function fetchUserAndPosts() {
       try {
-        const userRes = await apiFetch("http://localhost:8000/user/me", {
+        const userRes = await apiFetch("https://dummyjson-production-47d6.up.railway.app//user/me", {
           headers: { Authorization: `Bearer ${token}` },
         });
         const userData = await userRes.json();
 
-        const postsRes = await fetch("http://localhost:8000/posts?limit=251");
+        const postsRes = await fetch("https://dummyjson-production-47d6.up.railway.app//posts?limit=251");
         const postsData = await postsRes.json();
 
         const filtered = postsData.posts.filter(
