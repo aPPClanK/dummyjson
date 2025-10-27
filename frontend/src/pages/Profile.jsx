@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
-import { DotsLoader } from "./AppLayout";
-import { apiFetch } from "./auth/apiFetch";
+import { DotsLoader } from "../components/AppLayout";
+import { apiFetch } from "../auth/apiFetch";
 
 export default function Profile() {
   const [user, setUser] = useState(null);

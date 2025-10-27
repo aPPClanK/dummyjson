@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { DotsLoader } from "./AppLayout";
+import { DotsLoader } from "../components/AppLayout";
 
 export default function Users() {
   const [users, setUsers] = useState([]);

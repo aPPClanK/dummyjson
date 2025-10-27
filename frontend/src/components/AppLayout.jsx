@@ -1,12 +1,12 @@
 import { Routes, Route, useLocation } from "react-router";
 import Navbar from "./Navbar";
-import ProductList from "./ProductList";
-import Product from "./Product";
-import Profile from "./Profile";
-import Login from "./Login";
-import Todos from "./Todos";
-import Posts from "./Posts";
-import Users from "./Users";
+import ProductList from "../pages/ProductList";
+import Product from "../pages/Product";
+import Profile from "../pages/Profile";
+import Login from "../pages/Login";
+import Todos from "../pages/Todos";
+import Posts from "../pages/Posts";
+import Users from "../pages/Users";
 import ProtectedRoutes from "./ProtectedRoutes";
 
 export function DotsLoader() {

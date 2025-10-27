@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams, Link } from "react-router";
-import { apiFetch } from "./auth/apiFetch";
+import { apiFetch } from "../auth/apiFetch";
 
 export default function Product() {
   const { id } = useParams();

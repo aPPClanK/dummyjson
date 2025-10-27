@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router";
-import { DotsLoader } from "./AppLayout";
-import { apiFetch } from "./auth/apiFetch";
+import { DotsLoader } from "../components/AppLayout";
+import { apiFetch } from "../auth/apiFetch";
 
 export default function ProductList() {
   const [data, setData] = useState(null);
